@@ -54,6 +54,27 @@ class up(self.x):
 
 
 class game():
+    def __init__(self, args, env_ind=0):
+        super(AtariEnv, self).__init__(args, env_ind)
+    
+        self.env = gym.make(self.game)
+        self.env.seed(self.seed)    # NOTE: so each env would be different
+
+        # action space setup
+        self.actions     = range(self.action_dim)
+        self.logger.warning("Action Space: %s", self.actions)
+        # state space setup
+        self.hei_state = args.hei_state
+        self.wid_state = args.wid_state
+        self.preprocess_mode = args.preprocess_mode if not None else 0 # 0(crop&resize) | 1(rgb2gray) | 2(rgb2y)
+
+    def _preprocessState(self, state):
+        if self.preprocess_mode == 3 or self.preprocess_mode == 2 or self.preprocess_mode == 1 or self.preprocess_mode == 0:	
+            pass
+        return state.reshape(self.hei_state * self.wid_state)
+	
+    __init__(0, 0, 0)	
+	
     self.image = Image.open("temp.jpg")
     self.draw = ImageDraw.Draw(image)
     self.width = image.width
